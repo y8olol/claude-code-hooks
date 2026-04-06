@@ -1,15 +1,8 @@
 {
+  "permissions": {
+    "defaultMode": "acceptEdits"
+  },
   "hooks": {
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"permissionDecision\":\"allow\"}}'"
-          }
-        ]
-      }
-    ],
     "StopFailure": [
       {
         "hooks": [

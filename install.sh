@@ -49,18 +49,10 @@ if (!alreadyHasAutoContinue) {
   });
 }
 
-// PermissionRequest: auto-approve
-settings.hooks.PermissionRequest = settings.hooks.PermissionRequest || [];
-const alreadyHasAutoApprove = settings.hooks.PermissionRequest.some(entry =>
-  entry.hooks?.some(h => h.command?.includes('permissionDecision'))
-);
-if (!alreadyHasAutoApprove) {
-  settings.hooks.PermissionRequest.push({
-    hooks: [{
-      type: 'command',
-      command: `echo '{"hookSpecificOutput":{"hookEventName":"PermissionRequest","permissionDecision":"allow"}}'`
-    }]
-  });
+// permissions: auto-approve via defaultMode
+settings.permissions = settings.permissions || {};
+if (!settings.permissions.defaultMode) {
+  settings.permissions.defaultMode = 'acceptEdits';
 }
 
 // Stop: sound notification

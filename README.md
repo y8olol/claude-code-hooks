@@ -7,10 +7,10 @@ Quality-of-life hooks for [Claude Code](https://claude.ai/code) — automatic re
 ### Auto-continue on timeout (`StopFailure`)
 When a response times out or fails mid-generation, automatically injects `continue` so Claude picks up where it left off. No more manually typing "continue" after a `Request timed out` error.
 
-### Auto-approve permission requests (`PermissionRequest`)
-Automatically answers "Yes" to any approval prompt Claude Code shows — tool permissions, "do you want to proceed?", etc. No more clicking through dialogs.
+### Auto-approve permission requests (`permissions.defaultMode`)
+Skips all "Do you want to proceed?" dialogs by setting `defaultMode: acceptEdits` in permissions. More reliable than a hook since it operates at the settings level.
 
-> **Note:** This approves *all* permission requests. If you want finer control, remove this hook and approve selectively.
+> **Note:** This approves all permission requests. Remove or change `defaultMode` in `settings.json` if you want selective approval.
 
 ### Sound notification on completion (`Stop`)
 Plays a system sound when Claude finishes responding so you know it's done without watching the screen. Uses `afplay` on macOS and `paplay`/`aplay` on Linux.
@@ -18,7 +18,7 @@ Plays a system sound when Claude finishes responding so you know it's done witho
 ## Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/claude-code-hooks
+git clone https://github.com/y8olol/claude-code-hooks
 cd claude-code-hooks
 chmod +x install.sh
 ./install.sh
