@@ -49,6 +49,20 @@ if (!alreadyHasAutoContinue) {
   });
 }
 
+// PermissionRequest: auto-approve
+settings.hooks.PermissionRequest = settings.hooks.PermissionRequest || [];
+const alreadyHasAutoApprove = settings.hooks.PermissionRequest.some(entry =>
+  entry.hooks?.some(h => h.command?.includes('permissionDecision'))
+);
+if (!alreadyHasAutoApprove) {
+  settings.hooks.PermissionRequest.push({
+    hooks: [{
+      type: 'command',
+      command: `echo '{"hookSpecificOutput":{"hookEventName":"PermissionRequest","permissionDecision":"allow"}}'`
+    }]
+  });
+}
+
 // Stop: sound notification
 settings.hooks.Stop = settings.hooks.Stop || [];
 const alreadyHasNotify = settings.hooks.Stop.some(entry =>
