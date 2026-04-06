@@ -19,6 +19,7 @@ process.stdin.on("end", () => {
     }
 
     // Exit code 2 forces Claude to continue generating
+    process.stderr.write("Auto-continuing...\n");
     process.exit(2);
   } catch {
     process.exit(0);
