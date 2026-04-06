@@ -10,17 +10,6 @@ process.stdin.on('data', chunk => input += chunk);
 process.stdin.on('end', () => {
   clearTimeout(stdinTimeout);
   try {
-    const data = JSON.parse(input || '{}');
-    const reason = data.stop_reason || data.reason || '';
-
-    // Only inject "continue" on timeout/request errors, not intentional stops
-    const isTimeout = /timed?\s*out|timeout|request.*failed|network/i.test(reason);
-
-    // If no reason provided (unknown failure), still try to continue
-    if (reason && !isTimeout) {
-      process.exit(0);
-    }
-
     const output = {
       hookSpecificOutput: {
         hookEventName: 'StopFailure',
