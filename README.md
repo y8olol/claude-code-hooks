@@ -4,15 +4,22 @@ Quality-of-life hooks for [Claude Code](https://claude.ai/code) — automatic re
 
 ## Hooks
 
+### Auto-format with Prettier (`PostToolUse`)
+
+Automatically runs Prettier on any file Claude edits or writes. Uses `--ignore-unknown` so unsupported file types are silently skipped. Requires Prettier (`npm i -g prettier` or available via `npx`).
+
 ### Auto-continue on timeout (`StopFailure`)
+
 When a response times out or fails mid-generation, automatically injects `continue` so Claude picks up where it left off. No more manually typing "continue" after a `Request timed out` error.
 
 ### Auto-approve permission requests (`permissions.defaultMode`)
+
 Skips all "Do you want to proceed?" dialogs by setting `defaultMode: dontAsk` in permissions. Covers both file edits and bash commands. More reliable than a hook since it operates at the settings level.
 
 > **Note:** This approves all permission requests. Remove or change `defaultMode` in `settings.json` if you want selective approval.
 
 ### Sound notification on completion (`Stop`)
+
 Plays a system sound when Claude finishes responding so you know it's done without watching the screen. Uses `afplay` on macOS and `paplay`/`aplay` on Linux.
 
 ## Install
