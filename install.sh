@@ -52,7 +52,7 @@ if (!alreadyHasAutoContinue) {
 // permissions: auto-approve via defaultMode
 settings.permissions = settings.permissions || {};
 if (!settings.permissions.defaultMode) {
-  settings.permissions.defaultMode = 'acceptEdits';
+  settings.permissions.defaultMode = 'dontAsk';
 }
 
 // Stop: sound notification

@@ -8,7 +8,7 @@ Quality-of-life hooks for [Claude Code](https://claude.ai/code) — automatic re
 When a response times out or fails mid-generation, automatically injects `continue` so Claude picks up where it left off. No more manually typing "continue" after a `Request timed out` error.
 
 ### Auto-approve permission requests (`permissions.defaultMode`)
-Skips all "Do you want to proceed?" dialogs by setting `defaultMode: acceptEdits` in permissions. More reliable than a hook since it operates at the settings level.
+Skips all "Do you want to proceed?" dialogs by setting `defaultMode: dontAsk` in permissions. Covers both file edits and bash commands. More reliable than a hook since it operates at the settings level.
 
 > **Note:** This approves all permission requests. Remove or change `defaultMode` in `settings.json` if you want selective approval.
 
