@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Auto-continue hook — Stop event (exit code 2 forces Claude to keep going)
-// Only fires when Claude stopped due to an actual error/failure.
+// Detects errors by checking last_assistant_message for error patterns.
 // Checks stop_hook_active to prevent infinite loops.
 
 let input = "";
@@ -17,10 +17,12 @@ process.stdin.on("end", () => {
       process.exit(0);
     }
 
-    // Only continue on actual errors, not normal stops
-    const reason = data.stop_reason || data.reason || "";
+    // Detect errors from the last assistant message content
+    const lastMsg = data.last_assistant_message || "";
     const isError =
-      /error|timeout|timed?\s*out|failed|blocked|451|rate.?limit/i.test(reason);
+      /request timed out|error code|rate limit|timed?\s*out|censorship_blocked|provider returned error/i.test(
+        lastMsg,
+      );
 
     if (!isError) {
       process.exit(0);
