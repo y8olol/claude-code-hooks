@@ -8,9 +8,9 @@ Quality-of-life hooks for [Claude Code](https://claude.ai/code) — automatic re
 
 Automatically runs Prettier on any file Claude edits or writes. Uses `--ignore-unknown` so unsupported file types are silently skipped. Requires Prettier (`npm i -g prettier` or available via `npx`).
 
-### Auto-continue on timeout (`StopFailure`)
+### Auto-continue on failure (`Stop`)
 
-When a response times out or fails mid-generation, automatically injects `continue` so Claude picks up where it left off. No more manually typing "continue" after a `Request timed out` error.
+When Claude stops mid-response due to a timeout, content block, or any error, automatically forces continuation via exit code 2 on the `Stop` hook. Checks `stop_hook_active` to prevent infinite loops.
 
 ### Auto-approve permission requests (`permissions.defaultMode`)
 

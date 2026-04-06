@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-// Auto-continue hook — StopFailure event
-// When a response times out or fails mid-generation, injects "continue"
-// as additionalContext so Claude picks up where it left off.
+// Auto-continue hook — Stop event (exit code 2 forces Claude to keep going)
+// Fires when Claude stops mid-response due to timeout or error.
+// Exits with code 2 to force continuation. Checks stop_hook_active
+// to prevent infinite loops.
 
 let input = "";
 const stdinTimeout = setTimeout(() => process.exit(0), 5000);
@@ -10,14 +11,15 @@ process.stdin.on("data", (chunk) => (input += chunk));
 process.stdin.on("end", () => {
   clearTimeout(stdinTimeout);
   try {
-    const output = {
-      hookSpecificOutput: {
-        hookEventName: "StopFailure",
-        additionalContext: "continue",
-      },
-    };
+    const data = JSON.parse(input || "{}");
 
-    process.stdout.write(JSON.stringify(output));
+    // Prevent infinite loop — if we already triggered a continuation, stop
+    if (data.stop_hook_active === true) {
+      process.exit(0);
+    }
+
+    // Exit code 2 forces Claude to continue generating
+    process.exit(2);
   } catch {
     process.exit(0);
   }

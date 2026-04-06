@@ -15,19 +15,13 @@
         ]
       }
     ],
-    "StopFailure": [
+    "Stop": [
       {
         "hooks": [
           {
             "type": "command",
             "command": "node \"$HOME/.claude/hooks/auto-continue.js\""
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
+          },
           {
             "type": "command",
             "command": "\"$HOME/.claude/hooks/notify-done.sh\"",
